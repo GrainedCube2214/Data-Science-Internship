@@ -1,0 +1,29 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noshow Classification Model Demo</title>
+</head>
+<body>
+    <h1>Noshow Classification Model Demo</h1>
+    <form method="POST" action="/predict">
+        Gender(M:1, F:0): <input type="int" name="gender"><br>
+        Scheduled Date: <input type="text" name="scheduled_date"><br>
+        Appointment Date: <input type="text" name="appointment_date"><br>
+        Alcoholism: <input type="int" name="alcoholism"><br>
+        Hipertension: <input type="int" name="hipertension"><br>
+        Diabetes: <input type="int" name="diabetes"><br>
+        Cancelled: <input type="int" name="cancelled"><br>
+        Rate of Cancellation: <input type="float" name="rate_of_cancellation"><br>
+        <!-- Add other input fields here -->
+        <input type="submit" value="Predict">
+    </form>
+
+    <!-- Display the prediction result as text -->
+    {% if prediction %}
+        <h2>Prediction Result: {{ prediction }}</h2>
+    {% endif %}
+</body>
+</html>
