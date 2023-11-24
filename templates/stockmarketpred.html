@@ -1,0 +1,25 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Price Prediction Model Demo</title>
+</head>
+<body>
+    <h1>Stock Market Prediction Model Demo</h1>
+    <form method="POST" action="/predict">
+        Date (DD-MMM-YYYY): <input type="text" name="date"><br>
+        Open: <input type="float" name="open"><br>
+        Shares Traded: <input type="int" name="shares_traded"><br>
+        Turnover (crores): <input type="float" name="turnover"><br>
+        <input type="submit" value="Predict">
+    </form>
+
+    <!-- Display the prediction result as text -->
+    {% if prediction %}
+        <h2>Prediction Result: 
+            {{ prediction }}</h2>
+    {% endif %}
+</body>
+</html>
