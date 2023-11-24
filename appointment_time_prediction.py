@@ -14,7 +14,10 @@ model = joblib.load('regression_model.pkl')  # Adjust the model file name if nee
 def preprocess_input(data):
     df = pd.DataFrame(data, index=[0])
     df.dropna(inplace=True)
-    
+    df['Alcoholism'] = df['Alcoholism'].apply(lambda x: 1 if x.lower()=="yes" or x.lower()=="y"  else 0)
+    df['Hipertension'] = df['Hipertension'].apply(lambda x: 1 if x.lower()=="yes" or x.lower()=="y"  else 0)
+    df['Diabetes'] = df['Diabetes'].apply(lambda x: 1 if x.lower()=="yes" or x.lower()=="y"  else 0)
+    df['Cancelled'] = df['Cancelled'].apply(lambda x: 1 if x.lower()=="yes" or x.lower()=="y"  else 0)
     # Converting to datetime format
     df['Scheduled_Date'] = pd.to_datetime(df['Scheduled_Date'])
     df['Appointment_Date'] = pd.to_datetime(df['Appointment_Date'])

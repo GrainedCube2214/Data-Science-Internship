@@ -13,11 +13,16 @@ model = joblib.load('noshow_classification_model.pkl')  # Adjust the model file 
 def preprocess_input(data):
     # Assume 'data' is a dictionary containing user input
     input_df = pd.DataFrame([data])
+    
+    input_df['Gender'] = input_df['Gender'].apply(lambda x: 1 if x.upper()=="M" or x.upper()=="MALE" else 0)
 
     # Convert Scheduled_Date and Appointment_Date to datetime format
     input_df['Scheduled_Date'] = pd.to_datetime(input_df['Scheduled_Date'])
     input_df['Appointment_Date'] = pd.to_datetime(input_df['Appointment_Date'])
-
+    input_df['Alcoholism'] = input_df['Alcoholism'].apply(lambda x: 1 if x.lower()=="yes" or x.lower()=="y"  else 0)
+    input_df['Hipertension'] = input_df['Hipertension'].apply(lambda x: 1 if x.lower()=="yes" or x.lower()=="y"  else 0)
+    input_df['Diabetes'] = input_df['Diabetes'].apply(lambda x: 1 if x.lower()=="yes" or x.lower()=="y"  else 0)
+    input_df['Cancelled'] = input_df['Cancelled'].apply(lambda x: 1 if x.lower()=="yes" or x.lower()=="y"  else 0)
     # Feature extraction
     input_df['Day_Difference'] = (input_df['Appointment_Date'] - input_df['Scheduled_Date']).dt.days
     input_df['Scheduled_Year'] = input_df['Scheduled_Date'].dt.year
@@ -33,9 +38,9 @@ def preprocess_input(data):
     input_df['Rate_Of_Cancellation'] = input_df['Rate_Of_Cancellation'].astype(float)
 
     # Reorder columns to match the order during training
-    column_order = ['Scheduled_Month', 'Scheduled_Year', 'Day_Difference', 'Appointment_Month', 'Appointment_Day',
-                    'Hipertension', 'Alcoholism', 'Rate_Of_Cancellation', 'Diabetes', 'Cancelled', 'Scheduled_Day', 'Gender']
-
+    column_order = ['Cancelled', 'Scheduled_Month', 'Scheduled_Year', 'Diabetes', 'Appointment_Day', 'Day_Difference', 'Alcoholism', 'Hipertension', 'Scheduled_Day', 'Appointment_Month', 
+                    'Rate_Of_Cancellation', 'Gender']
+    
     input_df = input_df[column_order]
 
     return input_df
